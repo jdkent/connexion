@@ -246,3 +246,17 @@ class MethodViewResolver(RestyResolver):
             raise ResolverError(msg, sys.exc_info())
         except (AttributeError, ValueError) as e:
             raise ResolverError(str(e), sys.exc_info())
+
+
+class MiddlewareResolver(Resolver):
+
+    def __init__(self, call_next):
+        self.call_next = call_next
+
+    def resolve_function_from_operation_id(self, operation_id):
+        """
+        Invokes the function_resolver
+
+        :type operation_id: str
+        """
+        return self.call_next
